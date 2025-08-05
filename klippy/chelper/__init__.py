@@ -21,7 +21,7 @@ SOURCE_FILES = [
     'pollreactor.c', 'msgblock.c', 'trdispatch.c',
     'kin_cartesian.c', 'kin_corexy.c', 'kin_corexz.c', 'kin_delta.c',
     'kin_deltesian.c', 'kin_polar.c', 'kin_rotary_delta.c', 'kin_winch.c',
-    'kin_extruder.c', 'kin_shaper.c', 'kin_idex.c', 'kin_generic.c'
+    'kin_extruder.c', 'kin_shaper.c', 'kin_idex.c', 'kin_generic.c', 'kin_fivebarshoulder.c'
 ]
 DEST_LIB = "c_helper.so"
 OTHER_FILES = [
@@ -78,6 +78,12 @@ defs_itersolve = """
     void itersolve_set_position(struct stepper_kinematics *sk
         , double x, double y, double z);
     double itersolve_get_commanded_pos(struct stepper_kinematics *sk);
+"""
+
+defs_kin_fivebarshoulder = """
+struct stepper_kinematics *fivebarshoulder_stepper_alloc(
+    char arm, double inner_arm_length,
+    double outer_arm_length, double inner_arms_distance, double x_origin, double y_origin);
 """
 
 defs_trapq = """
@@ -232,6 +238,7 @@ defs_all = [
     defs_kin_deltesian, defs_kin_polar, defs_kin_rotary_delta, defs_kin_winch,
     defs_kin_extruder, defs_kin_shaper, defs_kin_idex,
     defs_kin_generic_cartesian,
+    defs_kin_fivebarshoulder
 ]
 
 # Update filenames to an absolute path
@@ -309,7 +316,7 @@ def get_ffi():
 ######################################################################
 
 HC_COMPILE_CMD = "gcc -Wall -g -O2 -o %s %s -lusb"
-HC_SOURCE_FILES = ['hub-ctrl.c']
+HC_SOURCE_FILES = ['hub-ctrl.c', 'kin_fivebarshoulder.c']
 HC_SOURCE_DIR = '../../lib/hub-ctrl'
 HC_TARGET = "hub-ctrl"
 HC_CMD = "sudo %s/hub-ctrl -h 0 -P 2 -p %d"
