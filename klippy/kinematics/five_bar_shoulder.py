@@ -33,7 +33,7 @@ class FiveBarShoulder:
             'inner_arm_length', above=0.)
         self.left_outer_arm = stepper_configs[0].getfloat(
             'outer_arm_length', above=0.)
-        rail_arm_left.setup_itersolve('fivebarelbow_stepper_alloc', b'l',
+        rail_arm_left.setup_itersolve('fivebarshoulder_stepper_alloc', b'l',
                                        self.left_inner_arm, self.left_outer_arm,
                                        self.inner_distance, self.x_origin, self.y_origin)
 
@@ -41,7 +41,7 @@ class FiveBarShoulder:
             'inner_arm_length', above=0.)
         self.right_outer_arm = stepper_configs[1].getfloat(
             'outer_arm_length', above=0.)
-        rail_arm_right.setup_itersolve('fivebarelbow_stepper_alloc', b'r',
+        rail_arm_right.setup_itersolve('fivebarshoulder_stepper_alloc', b'r',
                                         self.right_inner_arm, self.right_outer_arm,
                                         self.inner_distance, self.x_origin, self.y_origin)
 
@@ -66,7 +66,7 @@ class FiveBarShoulder:
         self.cartesian_kinematics_R = ffi_main.gc(
             ffi_lib.cartesian_stepper_alloc(b'y'), ffi_lib.free)
 
-        logging.info("5-Bar elbow driven %.2f %.2f %.2f %.2f %.2f",
+        logging.info("5-Bar shoulder driven %.2f %.2f %.2f %.2f %.2f",
                      self.left_inner_arm, self.left_outer_arm,
                      self.right_inner_arm, self.right_outer_arm,
                      self.inner_distance)
